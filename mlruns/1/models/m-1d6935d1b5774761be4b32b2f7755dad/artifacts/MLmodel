@@ -1,0 +1,22 @@
+artifact_path: file:///C:/Users/jagap/PycharmProjects/MLOps/mlruns/1/models/m-1d6935d1b5774761be4b32b2f7755dad/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.11.3
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+mlflow_version: 3.8.1
+model_id: m-1d6935d1b5774761be4b32b2f7755dad
+model_size_bytes: 809
+model_uuid: m-1d6935d1b5774761be4b32b2f7755dad
+prompts: null
+run_id: 0c6ca584d04f4a839c7d65b02db5556e
+utc_time_created: '2025-12-30 08:21:04.036116'
