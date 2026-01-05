@@ -51,6 +51,7 @@ An end-to-end MLOps solution for predicting heart disease risk using machine lea
 - pip (Python package manager)
 - Docker (for containerization)
 - Kubernetes/Minikube (for deployment, optional)
+  - **Kubernetes installation instructions**: See [k8s/README.md](k8s/README.md) for detailed setup guides for Windows, macOS, and Linux
 
 ## Installation
 
@@ -239,7 +240,17 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### 4. Download Dataset
+### 4. Install Docker and Kubernetes (Optional)
+
+For containerization and Kubernetes deployment:
+
+- **Docker installation**: See the [Docker Deployment](#docker-deployment) section below
+- **Kubernetes installation**: See [k8s/README.md](k8s/README.md) for complete setup instructions for:
+  - Docker Desktop Kubernetes (Windows, macOS)
+  - Minikube (Windows, macOS, Linux)
+  - Cloud providers (GKE, EKS, AKS)
+
+### 5. Download Dataset
 
 The dataset should be placed in the `data/` directory. You can either:
 
@@ -409,6 +420,8 @@ print(result)
 
 ## Docker Deployment
 
+> **Note**: For Kubernetes deployment instructions, see [k8s/README.md](k8s/README.md) which includes Docker Desktop Kubernetes and Minikube setup for all platforms.
+
 ### Windows: Install Docker Desktop
 
 1. Download Docker Desktop for Windows: https://www.docker.com/products/docker-desktop/
@@ -522,210 +535,27 @@ curl -X POST "http://localhost:8000/predict" \
 
 ## Kubernetes Deployment
 
-### Windows: Setup Options
+For complete Kubernetes deployment instructions, including setup for Windows, macOS, and Linux, see **[k8s/README.md](k8s/README.md)**.
 
-#### Option 1: Docker Desktop Kubernetes (Recommended for Windows)
+The Kubernetes deployment includes:
+- Setup instructions for Docker Desktop Kubernetes and Minikube
+- Step-by-step deployment guide
+- Access methods (NodePort, Port Forward, Ingress)
+- Scaling and update procedures
+- Cloud deployment guides (GKE, EKS, AKS)
+- Complete troubleshooting guide
 
-1. Open Docker Desktop
-2. Go to Settings → Kubernetes
-3. Check "Enable Kubernetes"
-4. Click "Apply & Restart"
-5. Wait for Kubernetes to start (green indicator)
-
-**Install kubectl** (if not included):
-- kubectl is usually included with Docker Desktop
-- Verify: `kubectl version --client`
-
-#### Option 2: Minikube for Windows
-
-1. Download Minikube installer: https://minikube.sigs.k8s.io/docs/start/
-2. Run the installer (`.exe` file)
-3. Open PowerShell as Administrator:
-   ```powershell
-   minikube start --driver=docker
-   ```
-
-**Verify Minikube**:
-```cmd
-minikube status
-kubectl get nodes
-```
-
-#### Option 3: Minikube for macOS
-
-**Using Homebrew**:
+**Quick Start**:
 ```bash
-brew install minikube
-minikube start --driver=docker
-```
-
-**Or download directly**:
-1. Download from: https://minikube.sigs.k8s.io/docs/start/
-2. Install the `.pkg` file
-3. Open Terminal:
-   ```bash
-   minikube start --driver=docker
-   ```
-
-**Install kubectl** (if not included):
-```bash
-brew install kubectl
-# or
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
-chmod +x kubectl
-sudo mv kubectl /usr/local/bin/
-```
-
-**Verify Minikube**:
-```bash
-minikube status
-kubectl get nodes
-```
-
-#### Option 4: Minikube for Linux
-
-**Ubuntu/Debian**:
-```bash
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-sudo install minikube-linux-amd64 /usr/local/bin/minikube
-minikube start --driver=docker
-```
-
-**Install kubectl**:
-```bash
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-chmod +x kubectl
-sudo mv kubectl /usr/local/bin/
-```
-
-**Verify Minikube**:
-```bash
-minikube status
-kubectl get nodes
-```
-
-### Deploy to Kubernetes
-
-**Windows (Docker Desktop Kubernetes)**:
-```cmd
-# Build Docker image
-docker build -t heart-disease-api .
-
-# Apply Kubernetes manifests
-kubectl apply -f k8s\deployment.yaml
-kubectl apply -f k8s\service.yaml
-
-# Check deployment status
-kubectl get pods
-kubectl get svc
-```
-
-**Windows (Minikube)**:
-```cmd
-# Set Docker environment for Minikube
-minikube docker-env | Invoke-Expression
-
 # Build image
 docker build -t heart-disease-api .
 
-# Apply Kubernetes manifests
-kubectl apply -f k8s\deployment.yaml
-kubectl apply -f k8s\service.yaml
-
-# Check deployment
-kubectl get pods
-kubectl get svc
-
-# Get service URL
-minikube service heart-disease-service --url
-```
-
-**macOS/Linux (Minikube)**:
-```bash
-# Build and load image
-eval $(minikube docker-env)
-docker build -t heart-disease-api .
-
-# Apply Kubernetes manifests
+# Deploy
 kubectl apply -f k8s/deployment.yaml
 kubectl apply -f k8s/service.yaml
 
-# Check deployment status
-kubectl get pods
-kubectl get svc
-
-# Get service URL
-minikube service heart-disease-service --url
-```
-
-### Access the API
-
-**Windows (Minikube)**:
-```cmd
-# Get the service URL
-minikube service heart-disease-service --url
-
-# Or port-forward
-kubectl port-forward svc/heart-disease-service 8000:80
-```
-
-**Windows (Docker Desktop Kubernetes)**:
-Access via NodePort (default: 30007):
-- Health: http://localhost:30007/
-- Predict: http://localhost:30007/predict
-- Metrics: http://localhost:30007/metrics
-
-**macOS/Linux (Minikube)**:
-```bash
-# Get the service URL
-minikube service heart-disease-service --url
-
-# Or port-forward
-kubectl port-forward svc/heart-disease-service 8000:80
-```
-
-**macOS (Docker Desktop Kubernetes)**:
-Access via NodePort (default: 30007):
-- Health: http://localhost:30007/
-- Predict: http://localhost:30007/predict
-- Metrics: http://localhost:30007/metrics
-
-### View Logs
-
-**Windows**:
-```cmd
-# Get pod name
-kubectl get pods
-
-# View logs
-kubectl logs <pod-name>
-
-# Follow logs
-kubectl logs -f <pod-name>
-```
-
-**macOS**:
-```bash
-# Get pod name
-kubectl get pods
-
-# View logs
-kubectl logs <pod-name>
-
-# Follow logs
-kubectl logs -f <pod-name>
-```
-
-**Linux**:
-```bash
-# Get pod name
-kubectl get pods
-
-# View logs
-kubectl logs <pod-name>
-
-# Follow logs
-kubectl logs -f <pod-name>
+# Access
+# http://localhost:30007 (NodePort)
 ```
 
 ## API Endpoints
@@ -852,8 +682,18 @@ Both Logistic Regression and Random Forest models are trained and compared. The 
 
 The API includes:
 - **Request Logging**: All requests are logged with method, path, and status
-- **Metrics Endpoint**: Prometheus-style metrics for monitoring
+- **Metrics Endpoint**: Prometheus-style metrics for monitoring (`/metrics`)
 - **Error Tracking**: Errors are logged and counted in metrics
+
+### Prometheus & Grafana Setup
+
+For complete Prometheus and Grafana monitoring setup with detailed instructions, see **[k8s/monitoring/README.md](k8s/monitoring/README.md)**.
+
+The monitoring setup includes:
+- Prometheus configuration and deployment
+- Grafana deployment with pre-configured dashboard
+- Docker Compose setup for local development
+- Complete troubleshooting guide
 
 ## Troubleshooting
 
