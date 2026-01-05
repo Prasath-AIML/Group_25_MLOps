@@ -12,8 +12,9 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import (
     accuracy_score, classification_report, precision_score,
-    recall_score, roc_auc_score, cross_val_score
+    recall_score, roc_auc_score
 )
+from sklearn.model_selection import cross_val_score
 
 # Add parent directory to path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
@@ -128,6 +129,10 @@ def main():
     ZIP_PATH = os.path.join(BASE_DIR, "heart_disease_dataset.zip")
     DATA_DIR = os.path.join(BASE_DIR, "data")
     MODEL_DIR = os.path.join(BASE_DIR, "saved_models")
+    MLRUNS_DIR = os.path.join(BASE_DIR, "mlruns")
+    
+    # Set MLflow tracking URI to local directory (use absolute path)
+    mlflow.set_tracking_uri(os.path.abspath(MLRUNS_DIR))
     
     print("Starting model training pipeline...")
     
