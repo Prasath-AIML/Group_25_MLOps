@@ -8,8 +8,8 @@ import time
 import numpy as np
 import joblib
 from collections import defaultdict
-from fastapi import FastAPI
-from pydantic import BaseModel
+from fastapi import FastAPI, HTTPException, Response
+from pydantic import BaseModel, Field, field_validator
 from typing import List
 
 # Setup logging
@@ -43,12 +43,20 @@ app = FastAPI(
 )
 
 # Load model and scaler
+model = None
+scaler = None
 try:
-    model = joblib.load(os.path.join(MODEL_DIR, "model.pkl"))
-    scaler = joblib.load(os.path.join(MODEL_DIR, "scaler.pkl"))
-    logger.info("Model and scaler loaded successfully")
+    model_path = os.path.join(MODEL_DIR, "model.pkl")
+    scaler_path = os.path.join(MODEL_DIR, "scaler.pkl")
+    if os.path.exists(model_path) and os.path.exists(scaler_path):
+        model = joblib.load(model_path)
+        scaler = joblib.load(scaler_path)
+        logger.info("Model and scaler loaded successfully")
+    else:
+        logger.warning(f"Model files not found at {MODEL_DIR}. Model will not be available.")
 except Exception as e:
     logger.error(f"Failed to load model: {e}")
+    logger.warning("Model will not be available. Please train the model first.")
     model = None
     scaler = None
 
@@ -84,14 +92,21 @@ def home():
 
 class PredictionRequest(BaseModel):
     """Request model for predictions"""
-    features: List[float]
+    features: List[float] = Field(..., min_length=13, max_length=13, description="Exactly 13 features required")
+    
+    @field_validator('features')
+    @classmethod
+    def validate_features(cls, v):
+        if len(v) != 13:
+            raise ValueError(f"Expected exactly 13 features, got {len(v)}")
+        return v
 
 
 @app.post("/predict")
 def predict(request: PredictionRequest):
     """Predict heart disease risk"""
     if model is None or scaler is None:
-        raise ValueError("Model not loaded. Please check model files.")
+        raise HTTPException(status_code=503, detail="Model not loaded. Please check model files.")
     
     start_time = time.time()
     metrics["prediction_requests_total"] += 1
@@ -127,7 +142,7 @@ def predict(request: PredictionRequest):
     except Exception as e:
         metrics["errors_total"] += 1
         logger.error(f"Prediction error: {str(e)}")
-        raise
+        raise HTTPException(status_code=500, detail=f"Prediction error: {str(e)}")
 
 
 @app.get("/metrics")
@@ -162,5 +177,5 @@ predictions_by_class_total{{class="1"}} {metrics["predictions_by_class"][1]}
 # TYPE errors_total counter
 errors_total {metrics["errors_total"]}
 """
-    return metrics_output
+    return Response(content=metrics_output, media_type="text/plain")
 
