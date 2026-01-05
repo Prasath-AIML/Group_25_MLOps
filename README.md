@@ -635,6 +635,19 @@ The pipeline runs on:
 - Push to `main` or `master` branch
 - Pull requests to `main` or `master` branch
 
+### Downloading CI/CD Artifacts
+
+After a successful pipeline run, trained models and training logs are available as downloadable artifacts:
+
+1. Go to the **Actions** tab in your GitHub repository
+2. Click on the completed workflow run
+3. Scroll down to the **Artifacts** section
+4. Download the artifacts:
+   - **trained-models**: Contains `saved_models/` directory with trained model files (`model.pkl`, `scaler.pkl`, etc.) and `mlruns/` directory with MLflow tracking data
+   - **training-logs**: Contains training logs and MLflow tracking data
+
+**Note**: Artifacts are retained for 90 days after the workflow run. For long-term storage, consider using MLflow model registry or a dedicated model storage solution.
+
 ## Development
 
 ### Code Structure
