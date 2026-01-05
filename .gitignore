@@ -12,3 +12,5 @@ data/
 htmlcov/
 .coverage
 .pytest_cache/
+mlflow.db
+*.db
