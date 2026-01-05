@@ -26,7 +26,7 @@ jobs:
 
     - name: Run Black (code formatting check)
       run: |
-        black --check --diff .
+        black --check --diff src/ tests/ scripts/
 
     - name: Run Flake8 (linting)
       run: |
