@@ -99,7 +99,7 @@ def log_to_mlflow(model, metrics, model_name: str, params: dict, X_train, y_trai
         mlflow.log_metric("cv_accuracy_std", cv_scores.std())
         
         # Log model
-        mlflow.sklearn.log_model(model, "model")
+        mlflow.sklearn.log_model(model, artifact_path="model")
 
 
 def save_models(lr_model, rf_model, scaler, model_dir: str, best_model_name: str):
