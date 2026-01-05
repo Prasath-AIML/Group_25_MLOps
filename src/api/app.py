@@ -1,6 +1,7 @@
 """
 FastAPI application for Heart Disease Prediction
 """
+
 import os
 import sys
 import logging
@@ -17,13 +18,13 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
     handlers=[logging.StreamHandler(sys.stdout)],
-    force=True
+    force=True,
 )
 
 logger = logging.getLogger("heart-disease-api")
 
 # Setup paths
-BASE_DIR = os.path.dirname(os.path.abspath(os.path.join(__file__, '../..')))
+BASE_DIR = os.path.dirname(os.path.abspath(os.path.join(__file__, "../..")))
 MODEL_DIR = os.path.join(BASE_DIR, "saved_models")
 
 # Metrics tracking
@@ -32,14 +33,14 @@ metrics = {
     "api_request_latency_ms": [],
     "prediction_requests_total": 0,
     "predictions_by_class": defaultdict(int),
-    "errors_total": 0
+    "errors_total": 0,
 }
 
 # Initialize FastAPI app
 app = FastAPI(
     title="Heart Disease Prediction API",
     description="ML model API for predicting heart disease risk",
-    version="1.0.0"
+    version="1.0.0",
 )
 
 # Load model and scaler
@@ -53,7 +54,9 @@ try:
         scaler = joblib.load(scaler_path)
         logger.info("Model and scaler loaded successfully")
     else:
-        logger.warning(f"Model files not found at {MODEL_DIR}. Model will not be available.")
+        logger.warning(
+            f"Model files not found at {MODEL_DIR}. Model will not be available."
+        )
 except Exception as e:
     logger.error(f"Failed to load model: {e}")
     logger.warning("Model will not be available. Please train the model first.")
@@ -66,13 +69,15 @@ async def log_requests(request, call_next):
     """Middleware to log requests and track metrics"""
     start_time = time.time()
     metrics["api_requests_total"] += 1
-    
+
     logger.info(f"Incoming request: {request.method} {request.url}")
     try:
         response = await call_next(request)
         latency = (time.time() - start_time) * 1000
         metrics["api_request_latency_ms"].append(latency)
-        logger.info(f"Response status: {response.status_code}, Latency: {latency:.2f} ms")
+        logger.info(
+            f"Response status: {response.status_code}, Latency: {latency:.2f} ms"
+        )
         return response
     except Exception as e:
         metrics["errors_total"] += 1
@@ -86,15 +91,18 @@ def home():
     return {
         "message": "ML Model API is running",
         "status": "healthy",
-        "model_loaded": model is not None
+        "model_loaded": model is not None,
     }
 
 
 class PredictionRequest(BaseModel):
     """Request model for predictions"""
-    features: List[float] = Field(..., min_length=13, max_length=13, description="Exactly 13 features required")
-    
-    @field_validator('features')
+
+    features: List[float] = Field(
+        ..., min_length=13, max_length=13, description="Exactly 13 features required"
+    )
+
+    @field_validator("features")
     @classmethod
     def validate_features(cls, v):
         if len(v) != 13:
@@ -106,8 +114,10 @@ class PredictionRequest(BaseModel):
 def predict(request: PredictionRequest):
     """Predict heart disease risk"""
     if model is None or scaler is None:
-        raise HTTPException(status_code=503, detail="Model not loaded. Please check model files.")
-    
+        raise HTTPException(
+            status_code=503, detail="Model not loaded. Please check model files."
+        )
+
     start_time = time.time()
     metrics["prediction_requests_total"] += 1
 
@@ -127,7 +137,9 @@ def predict(request: PredictionRequest):
         metrics["predictions_by_class"][int(prediction)] += 1
 
         latency = (time.time() - start_time) * 1000
-        logger.info(f"Prediction result: {int(prediction)}, Confidence: {confidence:.4f}")
+        logger.info(
+            f"Prediction result: {int(prediction)}, Confidence: {confidence:.4f}"
+        )
         logger.info(f"Latency: {latency:.2f} ms")
 
         return {
@@ -135,9 +147,9 @@ def predict(request: PredictionRequest):
             "confidence": round(confidence, 4),
             "probabilities": {
                 "class_0": round(float(prediction_proba[0]), 4),
-                "class_1": round(float(prediction_proba[1]), 4)
+                "class_1": round(float(prediction_proba[1]), 4),
             },
-            "latency_ms": round(latency, 2)
+            "latency_ms": round(latency, 2),
         }
     except Exception as e:
         metrics["errors_total"] += 1
@@ -151,7 +163,7 @@ def get_metrics():
     latency_values = metrics["api_request_latency_ms"]
     avg_latency = sum(latency_values) / len(latency_values) if latency_values else 0
     max_latency = max(latency_values) if latency_values else 0
-    
+
     metrics_output = f"""# HELP api_requests_total Total number of API requests
 # TYPE api_requests_total counter
 api_requests_total {metrics["api_requests_total"]}
@@ -178,4 +190,3 @@ predictions_by_class_total{{class="1"}} {metrics["predictions_by_class"][1]}
 errors_total {metrics["errors_total"]}
 """
     return Response(content=metrics_output, media_type="text/plain")
-
