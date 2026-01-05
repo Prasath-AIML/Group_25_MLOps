@@ -1,0 +1,108 @@
+{
+  "dashboard": {
+    "title": "Heart Disease API Monitoring",
+    "tags": ["heart-disease", "api", "monitoring"],
+    "timezone": "browser",
+    "schemaVersion": 16,
+    "version": 1,
+    "refresh": "10s",
+    "panels": [
+      {
+        "id": 1,
+        "title": "API Requests Total",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "api_requests_total",
+            "legendFormat": "Total Requests"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0}
+      },
+      {
+        "id": 2,
+        "title": "Prediction Requests",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "prediction_requests_total",
+            "legendFormat": "Predictions"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0}
+      },
+      {
+        "id": 3,
+        "title": "Request Latency (ms)",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "api_request_latency_ms{quantile=\"0.5\"}",
+            "legendFormat": "p50"
+          },
+          {
+            "expr": "api_request_latency_ms{quantile=\"0.95\"}",
+            "legendFormat": "p95"
+          },
+          {
+            "expr": "api_request_latency_ms{quantile=\"0.99\"}",
+            "legendFormat": "p99"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 24, "x": 0, "y": 8},
+        "yaxes": [
+          {
+            "label": "Latency (ms)",
+            "format": "ms"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Predictions by Class",
+        "type": "piechart",
+        "targets": [
+          {
+            "expr": "predictions_by_class_total",
+            "legendFormat": "Class {{class}}"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16}
+      },
+      {
+        "id": 5,
+        "title": "Error Rate",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "errors_total",
+            "legendFormat": "Errors"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 16}
+      },
+      {
+        "id": 6,
+        "title": "Request Rate",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(api_requests_total[5m])",
+            "legendFormat": "Requests/sec"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 24, "x": 0, "y": 24},
+        "yaxes": [
+          {
+            "label": "Requests/sec"
+          }
+        ]
+      }
+    ],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    }
+  }
+}
+

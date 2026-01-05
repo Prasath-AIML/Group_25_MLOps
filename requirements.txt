@@ -1,10 +1,15 @@
 fastapi
 uvicorn
+httpx
 numpy
 pandas
-scikit-learn
+scikit-learn==1.6.1
 joblib
 mlflow
 seaborn
 matplotlib
 python-multipart
+pytest
+pytest-cov
+black
+flake8
