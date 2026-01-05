@@ -38,9 +38,9 @@ An end-to-end MLOps solution for predicting heart disease risk using machine lea
 │   ├── deployment.yaml              # Kubernetes deployment
 │   └── service.yaml                 # Kubernetes service
 ├── data/                            # Dataset files
-├── saved_models/                    # Trained models
-├── mlflow.db                        # MLflow SQLite database (metadata)
-├── mlruns/                          # MLflow artifact storage
+├── saved_models/                    # Trained models (generated - run training to create)
+├── mlflow.db                        # MLflow SQLite database (metadata, generated)
+├── mlruns/                          # MLflow artifact storage (generated)
 ├── Dockerfile                       # Docker configuration
 ├── requirements.txt                 # Python dependencies
 └── README.md                        # This file
