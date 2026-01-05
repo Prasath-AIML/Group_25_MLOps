@@ -39,7 +39,8 @@ An end-to-end MLOps solution for predicting heart disease risk using machine lea
 │   └── service.yaml                 # Kubernetes service
 ├── data/                            # Dataset files
 ├── saved_models/                    # Trained models
-├── mlruns/                          # MLflow tracking data
+├── mlflow.db                        # MLflow SQLite database (metadata)
+├── mlruns/                          # MLflow artifact storage
 ├── Dockerfile                       # Docker configuration
 ├── requirements.txt                 # Python dependencies
 └── README.md                        # This file
@@ -286,9 +287,11 @@ This will:
 
 **View MLflow UI**:
 ```bash
-mlflow ui
+mlflow ui --backend-store-uri sqlite:///mlflow.db
 ```
 Then open http://localhost:5000 in your browser
+
+**Note**: The project uses SQLite backend for MLflow tracking. The database (`mlflow.db`) stores metadata (parameters, metrics), while artifacts (model files) are stored in the `mlruns/` directory.
 
 ### 2. Run API Locally
 
@@ -819,7 +822,7 @@ If PowerShell script execution is blocked, use Command Prompt instead.
 
 2. Use a different port:
    ```cmd
-   mlflow ui --port 5001
+   mlflow ui --backend-store-uri sqlite:///mlflow.db --port 5001
    ```
 
 3. Access manually: Open browser and go to `http://localhost:5000`
@@ -832,7 +835,7 @@ If PowerShell script execution is blocked, use Command Prompt instead.
 
 2. Use a different port:
    ```bash
-   mlflow ui --port 5001
+   mlflow ui --backend-store-uri sqlite:///mlflow.db --port 5001
    ```
 
 3. Access manually: Open browser and go to `http://localhost:5000`
@@ -847,7 +850,7 @@ If PowerShell script execution is blocked, use Command Prompt instead.
 
 2. Use a different port:
    ```bash
-   mlflow ui --port 5001
+   mlflow ui --backend-store-uri sqlite:///mlflow.db --port 5001
    ```
 
 3. Access manually: Open browser and go to `http://localhost:5000`
