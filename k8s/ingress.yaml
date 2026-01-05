@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: heart-disease-ingress
+  labels:
+    app: heart-disease
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: heart-disease.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: heart-disease-service
+            port:
+              number: 80
+  # For cloud providers, use LoadBalancer type in service.yaml instead
+  # This ingress is for local development with ingress controller
+
