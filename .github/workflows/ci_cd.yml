@@ -26,7 +26,7 @@ jobs:
 
     - name: Run Black (code formatting check)
       run: |
-        black --check --diff src/ tests/ scripts/
+        black --check --diff src/ tests/ scripts/ --exclude="/(__pycache__|\.git|\.pytest_cache|venv|mlruns|saved_models|data)/"
 
     - name: Run Flake8 (linting)
       run: |
