@@ -932,9 +932,11 @@ For questions or issues, please refer to the project repository.
 
 A comprehensive video demonstration of the end-to-end MLOps pipeline is available:
 
-### Watch the Demo Video
+### 📹 Watch the Demo Video
 
-**📹 [Click here to watch the video on Google Drive](https://drive.google.com/file/d/1R5Z2Xzfnw40qhuurD1fKD-kJcK6VzGPZ/view?usp=sharing)**
+[![Video Demo - End-to-End MLOps Pipeline](https://img.shields.io/badge/▶%20Watch%20Video%20Demo-blue?style=for-the-badge)](https://drive.google.com/file/d/1R5Z2Xzfnw40qhuurD1fKD-kJcK6VzGPZ/view?usp=sharing)
+
+**Direct Link**: [https://drive.google.com/file/d/1R5Z2Xzfnw40qhuurD1fKD-kJcK6VzGPZ/view?usp=sharing](https://drive.google.com/file/d/1R5Z2Xzfnw40qhuurD1fKD-kJcK6VzGPZ/view?usp=sharing)
 
 <details>
 <summary>📋 Video Contents</summary>
@@ -952,9 +954,7 @@ The video demonstration covers:
 
 </details>
 
-**Note**: If the video requires access permission, please request access or ensure the video is set to "Anyone with the link can view" in Google Drive sharing settings.
-
 ## Deployed API URL
 
 - **Local**: http://localhost:8000
-- **Kubernetes**: [URL will be provided after deployment]
+- **Kubernetes**: http://heart-disease.local
