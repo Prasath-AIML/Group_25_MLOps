@@ -46,6 +46,32 @@ An end-to-end MLOps solution for predicting heart disease risk using machine lea
 └── README.md                        # This file
 ```
 
+## Video Demo
+
+A comprehensive video demonstration of the end-to-end MLOps pipeline is available:
+
+### 📹 Watch the Demo Video
+
+[![Video Demo - End-to-End MLOps Pipeline](https://img.shields.io/badge/▶%20Watch%20Video%20Demo-blue?style=for-the-badge)](https://drive.google.com/file/d/1EF3y-tufZIKPIe0nkImQIo2OLA76HPIs/view?usp=sharing)
+
+**Direct Link**: [https://drive.google.com/file/d/1EF3y-tufZIKPIe0nkImQIo2OLA76HPIs/view?usp=sharing](https://drive.google.com/file/d/1EF3y-tufZIKPIe0nkImQIo2OLA76HPIs/view?usp=sharing)
+
+<details>
+<summary>📋 Video Contents</summary>
+
+The video demonstration covers:
+
+- **Data Acquisition & EDA**: Dataset overview and exploratory data analysis
+- **Model Training**: Training Logistic Regression and Random Forest models
+- **MLflow Tracking**: Experiment tracking and model versioning
+- **API Development**: FastAPI implementation with prediction endpoints
+- **Docker Deployment**: Containerization and Docker setup
+- **Kubernetes Deployment**: K8s deployment with services and ingress
+- **Monitoring**: Prometheus and Grafana setup
+- **End-to-End Workflow**: Complete prediction pipeline demonstration
+
+</details>
+
 ## Prerequisites
 
 - Python 3.9 or higher
@@ -927,32 +953,6 @@ This project is part of an MLOps assignment.
 For questions or issues, please refer to the project repository.
 
 ---
-
-## Video Demo
-
-A comprehensive video demonstration of the end-to-end MLOps pipeline is available:
-
-### 📹 Watch the Demo Video
-
-[![Video Demo - End-to-End MLOps Pipeline](https://img.shields.io/badge/▶%20Watch%20Video%20Demo-blue?style=for-the-badge)](https://drive.google.com/file/d/1R5Z2Xzfnw40qhuurD1fKD-kJcK6VzGPZ/view?usp=sharing)
-
-**Direct Link**: [https://drive.google.com/file/d/1R5Z2Xzfnw40qhuurD1fKD-kJcK6VzGPZ/view?usp=sharing](https://drive.google.com/file/d/1R5Z2Xzfnw40qhuurD1fKD-kJcK6VzGPZ/view?usp=sharing)
-
-<details>
-<summary>📋 Video Contents</summary>
-
-The video demonstration covers:
-
-- **Data Acquisition & EDA**: Dataset overview and exploratory data analysis
-- **Model Training**: Training Logistic Regression and Random Forest models
-- **MLflow Tracking**: Experiment tracking and model versioning
-- **API Development**: FastAPI implementation with prediction endpoints
-- **Docker Deployment**: Containerization and Docker setup
-- **Kubernetes Deployment**: K8s deployment with services and ingress
-- **Monitoring**: Prometheus and Grafana setup
-- **End-to-End Workflow**: Complete prediction pipeline demonstration
-
-</details>
 
 ## Deployed API URL
 
