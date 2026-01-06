@@ -52,9 +52,9 @@ A comprehensive video demonstration of the end-to-end MLOps pipeline is availabl
 
 ### 📹 Watch the Demo Video
 
-[![Video Demo - End-to-End MLOps Pipeline](https://img.shields.io/badge/▶%20Watch%20Video%20Demo-blue?style=for-the-badge)](https://drive.google.com/file/d/1EF3y-tufZIKPIe0nkImQIo2OLA76HPIs/view?usp=sharing)
+[![Video Demo - End-to-End MLOps Pipeline](https://img.shields.io/badge/▶%20Watch%20Video%20Demo-blue?style=for-the-badge)](https://drive.google.com/file/d/1sQ2JBUdrV3hiATkFrwRVG3a3InJfLGg2/view?usp=sharing)
 
-**Direct Link**: [https://drive.google.com/file/d/1EF3y-tufZIKPIe0nkImQIo2OLA76HPIs/view?usp=sharing](https://drive.google.com/file/d/1EF3y-tufZIKPIe0nkImQIo2OLA76HPIs/view?usp=sharing)
+**Direct Link**: [https://drive.google.com/file/d/1sQ2JBUdrV3hiATkFrwRVG3a3InJfLGg2/view?usp=sharing](https://drive.google.com/file/d/1sQ2JBUdrV3hiATkFrwRVG3a3InJfLGg2/view?usp=sharing)
 
 <details>
 <summary>📋 Video Contents</summary>
