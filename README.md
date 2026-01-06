@@ -82,7 +82,7 @@ An end-to-end MLOps solution for predicting heart disease risk using machine lea
 Open **Command Prompt** or **PowerShell**:
 
 ```cmd
-git clone <repository-url>
+git clone https://github.com/kannans/Group_25_MLOps
 cd Group_25_MLOps
 ```
 
