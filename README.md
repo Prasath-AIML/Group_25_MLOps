@@ -930,7 +930,29 @@ For questions or issues, please refer to the project repository.
 
 ## Video Demo
 
-[Link to video demonstration will be added here]
+A comprehensive video demonstration of the end-to-end MLOps pipeline is available:
+
+### Watch the Demo Video
+
+**📹 [Click here to watch the video on Google Drive](https://drive.google.com/file/d/1R5Z2Xzfnw40qhuurD1fKD-kJcK6VzGPZ/view?usp=sharing)**
+
+<details>
+<summary>📋 Video Contents</summary>
+
+The video demonstration covers:
+
+- **Data Acquisition & EDA**: Dataset overview and exploratory data analysis
+- **Model Training**: Training Logistic Regression and Random Forest models
+- **MLflow Tracking**: Experiment tracking and model versioning
+- **API Development**: FastAPI implementation with prediction endpoints
+- **Docker Deployment**: Containerization and Docker setup
+- **Kubernetes Deployment**: K8s deployment with services and ingress
+- **Monitoring**: Prometheus and Grafana setup
+- **End-to-End Workflow**: Complete prediction pipeline demonstration
+
+</details>
+
+**Note**: If the video requires access permission, please request access or ensure the video is set to "Anyone with the link can view" in Google Drive sharing settings.
 
 ## Deployed API URL
 
